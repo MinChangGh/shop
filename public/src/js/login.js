@@ -1,66 +1,32 @@
-function submit() {
-  let user = document.getElementById('user').value
-  let pwd = document.getElementById('pwd').value
-  let phone = document.getElementById('phone').value
+
+let dom  = document.getElementsByClassName('list')[0]
+let audio = document.getElementsByTagName('audio')[0]
+let lrcdata
+// 获取歌词
+function getLrc() {
   $.ajax({
-    url: '/home/3',
+    url: 'http://192.168.0.173:90/home/3',
     method: 'get',
-    success: (res) => {
-      console.log(res)
-    },
-    error: (err) => {
-      console.log(err)
-    }
-  })
-  // $.ajax({
-  //   url: '/login',
-  //   method: 'post',
-  //   data: {
-  //     user: user,
-  //     pwd: pwd,
-  //     phone: phone
-  //   },
-  //   success: (res) => {
-  //     console.log(res)
-  //   },
-  //   error: (err) => {
-  //   }
-  // })
-}
-
-function alter() {
-  let user = document.getElementById('user').value
-  let pwd = document.getElementById('pwd').value
-  $.ajax({
-    url: '/alter',
-    method: 'post',
     data: {
-      user: user,
-      pwd: pwd
     },
     success: (res) => {
-      console.log(res)
+      lrcdata = res
     },
     error: (err) => {
     }
   })
-
 }
-function del() {
-  let user = document.getElementById('user').value
-  let pwd = document.getElementById('pwd').value
-  $.ajax({
-    url: '/del',
-    method: 'post',
-    data: {
-      user: user,
-      pwd: pwd
-    },
-    success: (res) => {
-      console.log(res)
-    },
-    error: (err) => {
-    }
-  })
-
+// 歌词展示
+function loopLrc() {
+  for (let i=0; i< lrcdata.length;i++) {
+    setTimeout(()=>{
+      dom.innerHTML = lrcdata[i].lrc
+    },lrcdata[i].time)
+  }
 }
+getLrc()
+// 监听播放
+audio.addEventListener('playing', function () {
+  loopLrc()
+}, false);
+
