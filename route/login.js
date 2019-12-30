@@ -68,10 +68,12 @@ router.get('/home/:id', function(req, res, next) {
       }
     });
     setTimeout(()=>{
+      res.cookie('isVisit', 1, {path:'/',maxAge: 60 * 1000, httpOnly: true}) // 该处是设置 cookie 与 httpOnly
       res.send(lrcArr)
     },200)
 
 
   });
 });
+
 module.exports = router
