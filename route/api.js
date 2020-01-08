@@ -4,11 +4,8 @@ var fs = require('fs')
 // Express 提供了一种更好的方式
 // 专门用来包装路由的
 var express = require('express')
-var mutipart = require('connect-multiparty');
-var mutipartMiddeware = mutipart(); // mutipartMiddeware 作用
-// app.use(mutipart({
-//   uploadDir: './public/image'
-// }));
+
+
 // 1. 创建一个路由容器
 var api = express.Router()
 var mysql = require('mysql');
@@ -41,13 +38,6 @@ api.get('/getlist', function(req, res, next) {
 });
 
 
-// upload  上传
-// router.post('/upload', mutipartMiddeware, function(req, res) {
-//   let data = JSON.stringify(req.files)
-//   res.send(data)
-//
-// });
-
 // login  插入数据
 api.post('/login', (req, res, next) => {
   let user_name = req.body.user
@@ -66,14 +56,11 @@ api.post('/login', (req, res, next) => {
 api.post('/alter', (req, res, next) => {
   let user_name = req.body.user
   let pwd = req.body.pwd
-  console.log(user_name)
-  console.log(pwd)
   let sql = `UPDATE user SET login_password= '${pwd}' WHERE user_name= '${user_name}'`
   db.query(sql, (err, data) => {
     if(err) {
       return err
     }
-    console.log(data)
     res.send('ok')
   });
 });
@@ -81,8 +68,6 @@ api.post('/alter', (req, res, next) => {
 api.post('/del', (req, res, next) => {
   let user_name = req.body.user
   let pwd = req.body.pwd
-  console.log(user_name)
-  console.log(pwd)
   let sql = `DELETE FROM user WHERE user_name= '${user_name}'`
   db.query(sql, (err, data) => {
     if(err) {

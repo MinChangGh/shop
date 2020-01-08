@@ -1,6 +1,6 @@
 
 var fs = require('fs')
-
+var querystring = require('querystring');
 // Express 提供了一种更好的方式
 // 专门用来包装路由的
 var express = require('express')
@@ -24,13 +24,19 @@ router.get('/home/:id', function(req, res, next) {
     if(err) {
       return err
     }
-
+    console.log('fdfdf')
+    var qs = querystring.parse(req.url.split('?')[1]);
     // res.redirect(302, 'http://localhost:90/src/html/test.html');
     // res.location('http://baidu.com');
     // res.send(200);
     //res.end('<script>location.href="http://baidu.com"</script>')
     //res.redirect('/src/html/test.html')
-    res.send(JSON.stringify(data))
+    var datas = {
+      a: 1
+    }
+    datas = JSON.stringify(datas);
+    var callback = qs.callback+'('+datas+')';
+    res.send(callback)
   });
 });
 router.get('/banner', function(req, res, next) {
