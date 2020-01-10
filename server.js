@@ -13,7 +13,7 @@ var mutipartMiddeware = mutipart(); // mutipartMiddeware 作用
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(mutipart({
-  uploadDir: './public/image'
+  uploadDir: './public/mp4'
 }))
 // var bodyParser = require("body-parser");
 // app.use(bodyParser.urlencoded({  // bodyParser 的作用
