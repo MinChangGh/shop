@@ -4,7 +4,7 @@ var app = express();
 const path = require('path');
 const iconv = require('iconv-lite');
 const fs = require('fs');
-var router = require('./route/login')
+var router = require('./route/shop')
 var mp4 = require('./route/mp4')
 // var read = require('./component/readFile')
 //var api = require('./route/api')
@@ -42,7 +42,7 @@ function getExpireTime () {
 
 //
 // app.use(router)
-app.use(mp4)
+app.use(router)
 app.listen(90, () => {
   console.log('listen:' + 90)
 });

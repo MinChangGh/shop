@@ -10,9 +10,18 @@ var db = mysql.createPool({
   password: '123456',
   database: 'jd'
 });
+// 获取低价商品
+router.get('/api/getLow', function (req, res, next) {
+  db.query(`select * from product order by product_uprice asc limit 1,8 `, (err, data) => {
+    if (err) {
+      return err
+    }
+    res.send(data)
+  });
+});
 
-// 获取banner
-router.get('/getType', function (req, res, next) {
+// 获取类型
+router.get('/api/getType', function (req, res, next) {
   db.query(`SELECT * FROM category order by category_id asc`, (err, data) => {
     if (err) {
       return err
@@ -20,6 +29,17 @@ router.get('/getType', function (req, res, next) {
     res.send(data)
   });
 });
+
+// 获取banner
+router.get('/api/getBanner', function (req, res, next) {
+  db.query(`SELECT * FROM product where product_uprice > 10000 order by category_id asc`, (err, data) => {
+    if (err) {
+      return err
+    }
+    res.send(data)
+  });
+});
+
 
 
 module.exports = router
