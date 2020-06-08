@@ -18,6 +18,7 @@ var db = mysql.createPool({
   password: '123456',
   database: 'jd'
 });
+
 // 查找数据
 router.get('/home/:id', function(req, res, next) {
   db.query(`SELECT * FROM product_image WHERE product_id =${req.params.id} order by product_id asc`, (err, data) => {

@@ -10,6 +10,11 @@ var db = mysql.createPool({
   password: '123456',
   database: 'jd'
 });
+// jsonp
+router.get('/jsonp',function (req,res,next) {
+  console.log(req)
+  res.send('cb(1)')
+})
 // 获取低价商品
 router.get('/api/getLow', function (req, res, next) {
   db.query(`select * from product order by product_uprice asc limit 1,8 `, (err, data) => {
